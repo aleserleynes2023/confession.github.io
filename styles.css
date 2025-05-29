@@ -1,0 +1,406 @@
+body {
+  font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+  background: #f6eafc;
+  margin: 0;
+  min-height: 100vh;
+}
+.fade-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at top left, #fce4ec 0%, #ede7f6 100%);
+  opacity: 0;
+  transition: opacity 1.5s;
+  z-index: 1;
+}
+.img-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: center center/cover no-repeat;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 1.2s;
+  pointer-events: none;
+}
+.img-bg.visible {
+  opacity: 0.5;
+}
+.envelope-container {
+  position: fixed;
+  /* No flexbox centering */
+  width: 260px;
+  height: 170px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 1s, left 0.6s, top 0.6s, transform 0.6s;
+  z-index: 2;
+}
+.envelope {
+  width: 260px;
+  height: 170px;
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 36px #b39ddb33;
+  overflow: visible;
+}
+.envelope-flap {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(180deg,#e1bee7 0%,#fff 100%);
+  border-radius: 0 0 160px 160px/0 0 80px 80px;
+  z-index: 3;
+  transition: top 0.7s cubic-bezier(.52,1.64,.37,.87);
+}
+.envelope.open .envelope-flap {
+  top: -90px;
+}
+.envelope-front {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  background: #f3e5f5;
+  border-radius: 0 0 12px 12px;
+  z-index: 2;
+}
+
+/* Ribbon Button Styles */
+.ribbon-btn {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 90px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  padding: 0;
+  filter: drop-shadow(0 2px 8px #f0629244);
+}
+.ribbon-knot {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #f06292 65%, #f8bbd0 100%);
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 2px 8px #f0629244;
+  border: 2px solid #fff;
+}
+.ribbon-left, .ribbon-right {
+  position: absolute;
+  top: 12px;
+  width: 40px;
+  height: 14px;
+  background: linear-gradient(100deg, #f06292 60%, #f8bbd0 100%);
+  border-radius: 8px 16px 16px 8px;
+  z-index: 1;
+}
+.ribbon-left {
+  left: 0;
+  transform: rotate(-18deg);
+}
+.ribbon-right {
+  right: 0;
+  transform: scaleX(-1) rotate(-18deg);
+}
+.ribbon-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 70px;
+  height: 36px;
+  background: radial-gradient(ellipse at center, #fff9 0%, #ffb6d88a 60%, transparent 100%);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: ribbonGlowPulse 1.9s infinite alternate;
+}
+@keyframes ribbonGlowPulse {
+  from { opacity: 0.55; }
+  to   { opacity: 0.95; }
+}
+.ribbon-btn.untied .ribbon-knot {
+  animation: knotUntie 0.7s forwards;
+}
+.ribbon-btn.untied .ribbon-left {
+  animation: leftUntie 0.7s forwards;
+}
+.ribbon-btn.untied .ribbon-right {
+  animation: rightUntie 0.7s forwards;
+}
+.ribbon-btn.untied .ribbon-glow {
+  opacity: 0;
+}
+@keyframes knotUntie {
+  to { transform: translateY(-36px) scale(0.7); opacity: 0; }
+}
+@keyframes leftUntie {
+  to { transform: rotate(-70deg) translateX(-48px) translateY(30px); opacity: 0; }
+}
+@keyframes rightUntie {
+  to { transform: scaleX(-1) rotate(-70deg) translateX(48px) translateY(30px); opacity: 0; }
+}
+
+/* Paper and torn edge */
+.paper-texture {
+  background: url('https://www.transparenttextures.com/patterns/old-mathematics.png'), #fffdf7;
+}
+.torn-top {
+  width: 100%;
+  height: 28px;
+  background: url('https://svgshare.com/i/13gN.svg') repeat-x center top;
+  margin-top: -32px;
+  margin-bottom: 18px;
+}
+
+/* Letter Paper & Text */
+.letter-paper {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 32px #ce93d866;
+  padding: 2.5em 1.7em 2.2em 1.7em;
+  max-width: 90vw;
+  min-width: 300px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.letter-paper.visible {
+  display: block;
+  opacity: 1;
+}
+.letter-content {
+  text-align: center;
+  font-size: 1.18em;
+  color: #7c42c4;
+}
+.greeting-animated {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2em;
+  color: #cf5f99;
+  letter-spacing: 1px;
+  animation: fadeInDown 1.2s;
+  display: block;
+  margin-bottom: 0.6em;
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-40px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+.fade-in-text {
+  font-size: 1.1em;
+  color: #6e3667;
+  animation: fadeIn 2.2s;
+  display: block;
+  margin-bottom: 2em;
+}
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to   { opacity: 1;}
+}
+.signature-script {
+  font-family: 'Dancing Script', cursive;
+  color: #cf5f99;
+  font-size: 1.3em;
+  text-align: right;
+  margin-top: 2.5em;
+  margin-bottom: -1.5em;
+  opacity: 0.9;
+}
+.sig-name {
+  font-size: 1.4em;
+  letter-spacing: 2px;
+  color: #8f3b76;
+}
+.fancy-btn {
+  background: linear-gradient(90deg, #fad0c4 0%, #ffd1ff 100%);
+  color: #a60067;
+  box-shadow: 0 4px 18px #e1bee755;
+  border: 2px solid #fce4ec;
+  border-radius: 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.15em;
+  transition: transform 0.15s, box-shadow 0.2s;
+  position: relative;
+}
+.fancy-btn:hover, .fancy-btn:focus {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 8px 24px #f48fb155;
+  background: linear-gradient(90deg, #ffd1ff 0%, #fad0c4 100%);
+}
+.btn-heart {
+  margin-right: 0.4em;
+  font-size: 1.15em;
+  animation: bounceHeart 1.5s infinite alternate;
+}
+@keyframes bounceHeart {
+  0% { transform: scale(1);}
+  100% { transform: scale(1.15) rotate(-10deg);}
+}
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: #fff;
+  border: 2px solid #f3e5f5;
+  border-radius: 50%;
+  color: #b465c2;
+  font-size: 1.4em;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  transition: background 0.18s, border 0.12s;
+  z-index: 11;
+}
+.close-btn.active, .close-btn:hover {
+  background: #f3e5f5;
+  border: 2px solid #b39ddb;
+}
+
+/* Confession note and card */
+.confession-section {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  background: rgba(255,232,252,0.9);
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.confession-section.show {
+  display: flex !important;
+  opacity: 1;
+}
+.confession-card {
+  background: transparent;
+  border-radius: 18px;
+  box-shadow: 0 6px 26px #b39ddb55;
+  padding: 2.6em 1.2em 1.5em 1.2em;
+  min-width: 320px;
+  max-width: 98vw;
+  position: relative;
+  margin: 2em;
+}
+#confessionMessage {
+  transition: opacity 0.6s;
+  opacity: 1;
+}
+.confession-note {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 3px 28px #e0e0e099, 0 0px 0px #f8bbd0;
+  padding: 2em 1.3em 1.3em 1.3em;
+  margin-bottom: 1.2em;
+  font-size: 1.15em;
+  color: #31213a;
+  position: relative;
+  overflow: hidden;
+}
+.confession-note:before, .confession-note:after {
+  content: '';
+  position: absolute;
+  width: 48px; height: 48px;
+  opacity: 0.20;
+  filter: blur(1px);
+}
+.confession-note:before {
+  background: url('https://svgshare.com/i/13f9.svg') no-repeat center/contain;
+  left: 6px; top: 6px;
+}
+.confession-note:after {
+  background: url('https://svgshare.com/i/13fD.svg') no-repeat center/contain;
+  right: 6px; bottom: 6px;
+}
+.box-btn {
+  background: #f8f8fb;
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  padding: 0.8em 2em;
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: #7c42c4;
+  margin: 0 0.5em;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, border 0.2s;
+  box-shadow: 0 2px 12px #e1bee755;
+  outline: none;
+}
+.box-btn:hover, .box-btn:focus {
+  background: #ede7f6;
+  border: 2px solid #b39ddb;
+  color: #4a148c;
+}
+
+/* Animated sparkle confetti for "Yes" */
+.sparkle {
+  position: absolute;
+  width: 16px; height: 16px;
+  pointer-events: none;
+  z-index: 99;
+  animation: sparkle-pop 0.8s forwards;
+}
+@keyframes sparkle-pop {
+  0% { opacity: 1; transform: scale(0.2);}
+  80% { opacity: 1;}
+  100% { opacity: 0; transform: scale(1.8) translateY(-72px);}
+}
+
+/* Floating hearts background */
+.floating-heart {
+  position: fixed;
+  bottom: -40px;
+  left: 50%;
+  font-size: 2em;
+  color: #f06292;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatUp 4s linear forwards;
+}
+@keyframes floatUp {
+  0% { transform: translateX(0) scale(1);}
+  100% { transform: translateX(-80px) scale(1.8) translateY(-80vh); opacity: 0;}
+}
+@media (max-width: 600px) {
+  .letter-paper, .confession-card {
+    min-width: unset;
+    max-width: 99vw;
+    padding: 1.1em 0.2em 1.2em 0.2em;
+  }
+  .confession-note {
+    padding: 1.2em 0.6em 1em 0.6em;
+  }
+  .ribbon-btn {
+    width: 60px;
+    height: 28px;
+  }
+  .ribbon-knot {
+    width: 18px; height: 18px;
+  }
+  .ribbon-left, .ribbon-right {
+    width: 22px; height: 8px;
+    top: 5px;
+  }
+}

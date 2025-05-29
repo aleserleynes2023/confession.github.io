@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For Alesia 💌</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script:700|Nunito:600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Background music player (auto play, loop, hidden) -->
+  <audio id="bgMusic" src="bg.mp3" loop autoplay style="display:none"></audio>
+
+  <div id="fadeBg" class="fade-bg"></div>
+  <div id="imgBg" class="img-bg"></div>
+  <div id="envelopeContainer" class="envelope-container">
+    <div id="envelope" class="envelope">
+      <div class="envelope-flap"></div>
+      <div class="envelope-front"></div>
+      <button id="ribbonBtn" class="ribbon-btn" aria-label="Untie ribbon">
+        <span class="ribbon-knot"></span>
+        <span class="ribbon-left"></span>
+        <span class="ribbon-right"></span>
+        <span class="ribbon-glow"></span>
+      </button>
+    </div>
+  </div>
+  <div id="letterPaper" class="letter-paper paper-texture">
+    <div class="torn-top"></div>
+    <div class="letter-content">
+      <span class="greeting-animated">Hi Alesia,</span><br>
+      <span class="fade-in-text">
+        It’s been 3 years since we first met. You became my best friend someone I could trust, laugh with, and share life with. We’ve always had a special connection, one that’s never really faded even with the distance.<br><br>
+        When January 2025 came and you left the Philippines, that’s when I found the courage to confess how I really felt.<br><br>
+        And now… we’re here again.<br><br>
+        I’m sorry if it took me this long to fully understand and process everything, and to finally gather the courage to ask this:<br><br>
+        <span style="color:#ae318c;">If your heart is still open to it, just press the heart. ❤️</span><br><br>
+        May I borrow a moment of your time?
+      </span>
+      <div class="signature-script">— Yours, <span class="sig-name">Aleser</span></div>
+      <button id="heartBtn" class="heart-btn box-btn fancy-btn" style="margin-top:2em;">
+        <span class="btn-heart">💗</span>
+      </button>
+    </div>
+    <button id="closeLetterBtn" class="close-btn" aria-label="Close letter">×</button>
+  </div>
+  <div id="confessionSection" class="confession-section">
+    <div class="confession-card">
+      <button id="closeConfessionBtn" class="close-btn" aria-label="Close confession">×</button>
+      <div id="confessionMessage"></div>
+      <div id="audioSection" class="audio-section" style="display:none;">
+        <audio controls>
+          <source src="your-voice-message.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
