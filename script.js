@@ -19,12 +19,12 @@ window.onload = function () {
   if (bgMusic) {
     // Handle browser autoplay restrictions
     const startMusic = () => {
-      bgMusic.volume = isMobile() ? 0.01 : 0.01; // In between 0.01 and 0.05
+      bgMusic.volume = isMobile() ? 0.10 : 0.20; // In between 0.01 and 0.05
       bgMusic.play().catch(() => {});
       document.removeEventListener('click', startMusic);
       document.removeEventListener('touchstart', startMusic);
     };
-    bgMusic.volume = isMobile() ? 0.01 : 0.01;
+    bgMusic.volume = isMobile() ? 0.10 : 0.20;
     bgMusic.play().catch(() => {});
     document.addEventListener('click', startMusic);
     document.addEventListener('touchstart', startMusic);
