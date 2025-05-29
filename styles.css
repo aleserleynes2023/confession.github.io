@@ -3,6 +3,7 @@ body {
   background: #f6eafc;
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 .fade-bg {
   position: fixed;
@@ -26,7 +27,6 @@ body {
 }
 .envelope-container {
   position: fixed;
-  /* No flexbox centering */
   width: 260px;
   height: 170px;
   left: 50%;
@@ -69,8 +69,6 @@ body {
   border-radius: 0 0 12px 12px;
   z-index: 2;
 }
-
-/* Ribbon Button Styles */
 .ribbon-btn {
   position: absolute;
   top: 50px;
@@ -88,6 +86,7 @@ body {
   outline: none;
   padding: 0;
   filter: drop-shadow(0 2px 8px #f0629244);
+  -webkit-tap-highlight-color: transparent;
 }
 .ribbon-knot {
   display: inline-block;
@@ -155,8 +154,6 @@ body {
 @keyframes rightUntie {
   to { transform: scaleX(-1) rotate(-70deg) translateX(48px) translateY(30px); opacity: 0; }
 }
-
-/* Paper and torn edge */
 .paper-texture {
   background: url('https://www.transparenttextures.com/patterns/old-mathematics.png'), #fffdf7;
 }
@@ -167,8 +164,6 @@ body {
   margin-top: -32px;
   margin-bottom: 18px;
 }
-
-/* Letter Paper & Text */
 .letter-paper {
   display: none;
   position: fixed;
@@ -241,6 +236,8 @@ body {
   font-size: 1.15em;
   transition: transform 0.15s, box-shadow 0.2s;
   position: relative;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 .fancy-btn:hover, .fancy-btn:focus {
   transform: translateY(-4px) scale(1.04);
@@ -256,7 +253,6 @@ body {
   0% { transform: scale(1);}
   100% { transform: scale(1.15) rotate(-10deg);}
 }
-/* Close button */
 .close-btn {
   position: absolute;
   top: 16px;
@@ -276,8 +272,6 @@ body {
   background: #f3e5f5;
   border: 2px solid #b39ddb;
 }
-
-/* Confession note and card */
 .confession-section {
   display: none;
   position: fixed;
@@ -346,14 +340,13 @@ body {
   transition: background 0.2s, box-shadow 0.2s, border 0.2s;
   box-shadow: 0 2px 12px #e1bee755;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .box-btn:hover, .box-btn:focus {
   background: #ede7f6;
   border: 2px solid #b39ddb;
   color: #4a148c;
 }
-
-/* Animated sparkle confetti for "Yes" */
 .sparkle {
   position: absolute;
   width: 16px; height: 16px;
@@ -366,8 +359,6 @@ body {
   80% { opacity: 1;}
   100% { opacity: 0; transform: scale(1.8) translateY(-72px);}
 }
-
-/* Floating hearts background */
 .floating-heart {
   position: fixed;
   bottom: -40px;
@@ -383,7 +374,17 @@ body {
   0% { transform: translateX(0) scale(1);}
   100% { transform: translateX(-80px) scale(1.8) translateY(-80vh); opacity: 0;}
 }
+
+/* MOBILE FRIENDLINESS */
 @media (max-width: 600px) {
+  .envelope-container, .envelope {
+    width: 95vw;
+    height: 60vw;
+    min-width: 160px;
+    min-height: 100px;
+    max-width: 98vw;
+    max-height: 70vw;
+  }
   .letter-paper, .confession-card {
     min-width: unset;
     max-width: 99vw;
@@ -391,10 +392,11 @@ body {
   }
   .confession-note {
     padding: 1.2em 0.6em 1em 0.6em;
+    font-size: 1em;
   }
   .ribbon-btn {
-    width: 60px;
-    height: 28px;
+    width: 44px;
+    height: 22px;
   }
   .ribbon-knot {
     width: 18px; height: 18px;
@@ -402,5 +404,19 @@ body {
   .ribbon-left, .ribbon-right {
     width: 22px; height: 8px;
     top: 5px;
+  }
+  .close-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1.15em;
+    top: 8px;
+    right: 8px;
+  }
+  .letter-content {
+    font-size: 0.99em;
+  }
+  .box-btn, .fancy-btn {
+    font-size: 1em;
+    padding: 0.6em 1.1em;
   }
 }
