@@ -13,15 +13,18 @@ window.onload = function () {
 
   // Background music: try to play on user gesture if blocked by browser
   const bgMusic = document.getElementById('bgMusic');
+  function isMobile() {
+    return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+  }
   if (bgMusic) {
     // Handle browser autoplay restrictions
     const startMusic = () => {
-      bgMusic.volume = 0.10;
+      bgMusic.volume = isMobile() ? 0.03 : 0.04; // In between 0.01 and 0.05
       bgMusic.play().catch(() => {});
       document.removeEventListener('click', startMusic);
       document.removeEventListener('touchstart', startMusic);
     };
-    bgMusic.volume = 0.10;
+    bgMusic.volume = isMobile() ? 0.03 : 0.04;
     bgMusic.play().catch(() => {});
     document.addEventListener('click', startMusic);
     document.addEventListener('touchstart', startMusic);
